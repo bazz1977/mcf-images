@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>McFarlane Hub — NFT Image Library</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink:#0a0a0c; --panel:#0f0f13; --surface:#16161c;
+      --border:rgba(255,255,255,.06); --muted:#52525b;
+      --text:#e4e4e7; --accent:#ff3d2e; --gold:#ffbe00; --ok:#22c55e;
+    }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { background:var(--ink); color:var(--text); font-family:'Barlow Condensed',sans-serif; min-height:100vh; }
+
+    .topbar {
+      height:52px; border-bottom:1px solid var(--border);
+      background:var(--panel); display:flex; align-items:center;
+      padding:0 20px; gap:12px; position:sticky; top:0; z-index:10;
+    }
+    .logo-hex {
+      width:20px; height:20px; background:var(--accent); flex-shrink:0;
+      clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
+    }
+    .logo { font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:2px; }
+    .topbar-right { margin-left:auto; display:flex; align-items:center; gap:12px; }
+    #searchInput {
+      background:var(--surface); border:1px solid var(--border); border-radius:6px;
+      color:var(--text); font-family:'Barlow Condensed',sans-serif; font-size:13px;
+      letter-spacing:.5px; padding:6px 12px; width:220px; outline:none;
+    }
+    #searchInput:focus { border-color:var(--accent); }
+    #countEl { font-size:12px; color:var(--muted); letter-spacing:1px; white-space:nowrap; }
+
+    .grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fill, minmax(120px, 1fr));
+      gap:8px; padding:16px 20px;
+      max-width:1400px; margin:0 auto;
+    }
+
+    .tile {
+      background:var(--surface); border:1px solid var(--border);
+      border-radius:6px; overflow:hidden; cursor:default;
+      transition:border-color .15s;
+    }
+    .tile:hover { border-color:rgba(255,255,255,.15); }
+    .tile img {
+      width:100%; aspect-ratio:1; object-fit:cover;
+      display:block; background:var(--panel);
+    }
+    .tile-info { padding:6px 8px; }
+    .tile-rarity {
+      font-family:'Bebas Neue',sans-serif; font-size:11px;
+      letter-spacing:1px; text-transform:uppercase;
+    }
+    .tile-name {
+      font-size:10px; color:var(--muted); margin-top:2px;
+      overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+    }
+
+    .rarity-exotic     { color:#fbbf24; }
+    .rarity-legendary  { color:#ef4444; }
+    .rarity-epic       { color:#38bdf8; }
+    .rarity-rare       { color:#10b981; }
+    .rarity-common     { color:var(--text); }
+    .rarity-basic      { color:var(--muted); }
+    .rarity-unknown    { color:var(--muted); }
+
+    #emptyMsg {
+      display:none; text-align:center; padding:60px 20px;
+      color:var(--muted); font-size:14px; letter-spacing:1px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="logo-hex"></div>
+  <div class="logo">NFT Image Library</div>
+  <div class="topbar-right">
+    <input id="searchInput" placeholder="Search name, rarity, contract..." autocomplete="off">
+    <span id="countEl">— images</span>
+  </div>
+</div>
+
+<div class="grid" id="grid"></div>
+<div id="emptyMsg">No images found.</div>
+
+<script>
+// ── File list ─────────────────────────────────────────────────
+// Auto-generated from filenames in this repo.
+// Format: {contract}_{assetId}_{rarity}_{name}.jpg
+// To regenerate: run generate-index.js or update FILES manually.
+
+// Dynamically fetch file list from GitHub API
+const REPO = 'bazz1977/mcf-images';
+const API  = 'https://api.github.com/repos/' + REPO + '/contents/';
+const BASE = 'https://bazz1977.github.io/mcf-images/';
+
+var allTiles = [];
+
+function rarityClass(r) {
+  var map = { exotic:'rarity-exotic', legendary:'rarity-legendary',
+              epic:'rarity-epic', rare:'rarity-rare',
+              common:'rarity-common', basic:'rarity-basic' };
+  return map[r] || 'rarity-unknown';
+}
+
+function parseFilename(filename) {
+  // {contract}_{assetId}_{rarity}_{name}.jpg
+  var base = filename.replace(/\.jpg$/i, '');
+  var parts = base.split('_');
+  var contract = parts[0] || '';
+  var assetId  = parts[1] || '';
+  var rarity   = parts[2] || '';
+  var name     = parts.slice(3).join(' ').replace(/-/g, ' ') || assetId;
+  return { filename, contract, assetId, rarity, name };
+}
+
+function renderTile(f) {
+  var div = document.createElement('div');
+  div.className = 'tile';
+  div.dataset.search = (f.name + ' ' + f.rarity + ' ' + f.assetId + ' ' + f.contract).toLowerCase();
+  div.innerHTML =
+    '<img src="' + BASE + encodeURIComponent(f.filename) + '" alt="' + f.name + '" loading="lazy">' +
+    '<div class="tile-info">' +
+    '<div class="tile-rarity ' + rarityClass(f.rarity) + '">' + (f.rarity || '—') + '</div>' +
+    '<div class="tile-name" title="' + f.name + '">' + f.name + '</div>' +
+    '</div>';
+  return div;
+}
+
+function updateCount(n) {
+  document.getElementById('countEl').textContent = n + ' image' + (n === 1 ? '' : 's');
+}
+
+async function loadFiles() {
+  var grid = document.getElementById('grid');
+  grid.innerHTML = '<div style="color:var(--muted);font-size:13px;padding:40px;grid-column:1/-1;text-align:center;letter-spacing:1px;">Loading...</div>';
+
+  try {
+    // GitHub API returns max 1000 items per request
+    var page = 1;
+    var files = [];
+    while (true) {
+      var res = await fetch(API + '?per_page=100&page=' + page);
+      if (!res.ok) throw new Error('GitHub API: ' + res.status);
+      var items = await res.json();
+      var jpgs = items.filter(function(i) { return i.name.match(/\.jpg$/i); });
+      files = files.concat(jpgs.map(function(i) { return i.name; }));
+      if (items.length < 100) break;
+      page++;
+    }
+
+    grid.innerHTML = '';
+    if (!files.length) {
+      document.getElementById('emptyMsg').style.display = 'block';
+      updateCount(0);
+      return;
+    }
+
+    allTiles = files.map(parseFilename);
+    allTiles.forEach(function(f) {
+      grid.appendChild(renderTile(f));
+    });
+    updateCount(allTiles.length);
+
+  } catch(e) {
+    grid.innerHTML = '<div style="color:var(--accent);font-size:13px;padding:40px;grid-column:1/-1;text-align:center;">Error loading files: ' + e.message + '</div>';
+  }
+}
+
+// Search
+document.getElementById('searchInput').addEventListener('input', function() {
+  var q = this.value.trim().toLowerCase();
+  var tiles = document.querySelectorAll('.tile');
+  var visible = 0;
+  tiles.forEach(function(t) {
+    var show = !q || t.dataset.search.includes(q);
+    t.style.display = show ? '' : 'none';
+    if (show) visible++;
+  });
+  updateCount(visible);
+  document.getElementById('emptyMsg').style.display = visible === 0 ? 'block' : 'none';
+});
+
+loadFiles();
+</script>
+</body>
+</html>
