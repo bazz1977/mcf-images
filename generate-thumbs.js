@@ -1,7 +1,9 @@
 /**
  * generate-thumbs.js — McFarlane Hub
- * Generates 200x200px thumbnails for all NFT images in this folder.
- * Also regenerates files.json with both originals and thumbnails.
+ * Generates thumbnails for all NFT images in this folder:
+ *   _thumb  → 200x200px  (small, for lists and compact views)
+ *   _medium → 600x600px  (medium, for grid cards)
+ * Also regenerates files.json with all variants.
  *
  * Usage: node generate-thumbs.js
  * Requires: npm install sharp
@@ -11,54 +13,49 @@ const fs   = require('fs');
 const path = require('path');
 const sharp = require('sharp');
 
-const DIR        = __dirname;
-const THUMB_SIZE = 200;
-const THUMB_SUFFIX = '_thumb';
+const DIR = __dirname;
+
+const VARIANTS = [
+  { suffix: '_thumb',  size: 200, quality: 85 },
+  { suffix: '_medium', size: 600, quality: 88 },
+];
 
 async function run() {
-  // Get all original JPGs (exclude existing thumbs)
+  // Get all original JPGs (exclude existing thumbs/mediums)
   const allFiles = fs.readdirSync(DIR).filter(f =>
-    f.match(/\.jpg$/i) && !f.includes(THUMB_SUFFIX)
+    f.match(/\.jpg$/i) &&
+    !VARIANTS.some(v => f.includes(v.suffix))
   );
 
-  console.log(`Found ${allFiles.length} original images. Generating thumbnails...`);
+  console.log(`Found ${allFiles.length} original images. Generating variants...`);
 
-  let done = 0;
-  let skipped = 0;
+  for (const variant of VARIANTS) {
+    console.log(`\n── Generating ${variant.suffix} (${variant.size}x${variant.size}px) ──`);
+    let done = 0, skipped = 0;
 
-  for (const file of allFiles) {
-    const base     = file.replace(/\.jpg$/i, '');
-    const thumbName = base + THUMB_SUFFIX + '.jpg';
-    const srcPath  = path.join(DIR, file);
-    const dstPath  = path.join(DIR, thumbName);
+    for (const file of allFiles) {
+      const base    = file.replace(/\.jpg$/i, '');
+      const outName = base + variant.suffix + '.jpg';
+      const srcPath = path.join(DIR, file);
+      const dstPath = path.join(DIR, outName);
 
-    // Skip if thumb already exists
-    if (fs.existsSync(dstPath)) {
-      skipped++;
-      continue;
-    }
+      if (fs.existsSync(dstPath)) { skipped++; continue; }
 
-    try {
-      await sharp(srcPath)
-        .resize(THUMB_SIZE, THUMB_SIZE, {
-          fit: 'cover',
-          position: 'centre'
-        })
-        .jpeg({ quality: 85 })
-        .toFile(dstPath);
-      done++;
-
-      if (done % 50 === 0) {
-        console.log(`  ${done} / ${allFiles.length - skipped} thumbnails generated...`);
+      try {
+        await sharp(srcPath)
+          .resize(variant.size, variant.size, { fit: 'cover', position: 'centre' })
+          .jpeg({ quality: variant.quality })
+          .toFile(dstPath);
+        done++;
+        if (done % 50 === 0) console.log(`  ${done} / ${allFiles.length - skipped} done...`);
+      } catch(e) {
+        console.warn(`  ✗ Failed: ${file} — ${e.message}`);
       }
-    } catch(e) {
-      console.warn(`  ✗ Failed: ${file} — ${e.message}`);
     }
+    console.log(`✓ ${done} new, ${skipped} already existed`);
   }
 
-  console.log(`✓ Done — ${done} new thumbnails, ${skipped} already existed`);
-
-  // Regenerate files.json with all JPGs (originals + thumbs)
+  // Regenerate files.json with all JPGs (originals + all variants)
   const allJpgs = fs.readdirSync(DIR)
     .filter(f => f.match(/\.jpg$/i))
     .sort();
@@ -68,7 +65,7 @@ async function run() {
     JSON.stringify(allJpgs, null, 2)
   );
 
-  console.log(`✓ files.json updated with ${allJpgs.length} entries (originals + thumbnails)`);
+  console.log(`\n✓ files.json updated with ${allJpgs.length} entries`);
 }
 
 run().catch(console.error);
