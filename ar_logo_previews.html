@@ -1,0 +1,138 @@
+
+<style>
+.grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; padding: 8px 0; }
+.item { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.label { font-size: 12px; color: var(--color-text-secondary); }
+.btn { width: 32px; height: 32px; border-radius: 5px; background: var(--color-background-secondary); border: 0.5px solid var(--color-border-tertiary); display: grid; place-items: center; cursor: pointer; }
+.btn:hover { border-color: var(--color-border-secondary); }
+.card-row { display: flex; align-items: center; gap: 5px; background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: 6px; padding: 6px 10px; }
+.pill { font-size: 11px; padding: 2px 7px; border-radius: 3px; font-family: var(--font-sans); font-weight: 500; }
+.pill-c { background: #e4e4e7; color: #27272a; }
+.pill-xp { background: rgba(255,190,0,.15); border: 0.5px solid rgba(255,190,0,.4); color: #d97706; font-size: 10px; padding: 2px 6px; border-radius: 3px; }
+.act { font-size: 10px; padding: 3px 7px; border-radius: 4px; background: var(--color-background-secondary); border: 0.5px solid var(--color-border-tertiary); color: var(--color-text-secondary); cursor: pointer; font-family: var(--font-sans); }
+.act-r { background: #ff3d2e; color: white; border-color: #ff3d2e; }
+</style>
+
+<div class="grid">
+
+<!-- 01: AR text -->
+<div class="item">
+  <div class="card-row">
+    <span class="pill pill-c">COMMON</span>
+    <span class="pill-xp">+5 XP</span>
+    <div class="btn" style="font-size:11px;font-weight:500;color:var(--color-text-secondary);font-family:var(--font-sans);letter-spacing:.5px;">AR</div>
+    <button class="act">INFO</button>
+    <button class="act act-r">OPEN</button>
+  </div>
+  <span class="label">01 — tekst AR</span>
+</div>
+
+<!-- 02: cube/box icon -->
+<div class="item">
+  <div class="card-row">
+    <span class="pill pill-c">COMMON</span>
+    <span class="pill-xp">+5 XP</span>
+    <div class="btn"><i class="ti ti-box" style="font-size:16px;color:var(--color-text-secondary);" aria-hidden="true"></i></div>
+    <button class="act">INFO</button>
+    <button class="act act-r">OPEN</button>
+  </div>
+  <span class="label">02 — kubus</span>
+</div>
+
+<!-- 03: augmented reality icon -->
+<div class="item">
+  <div class="card-row">
+    <span class="pill pill-c">COMMON</span>
+    <span class="pill-xp">+5 XP</span>
+    <div class="btn"><i class="ti ti-augmented-reality" style="font-size:16px;color:var(--color-text-secondary);" aria-hidden="true"></i></div>
+    <button class="act">INFO</button>
+    <button class="act act-r">OPEN</button>
+  </div>
+  <span class="label">03 — AR icoon</span>
+</div>
+
+<!-- 04: 3D rotate -->
+<div class="item">
+  <div class="card-row">
+    <span class="pill pill-c">COMMON</span>
+    <span class="pill-xp">+5 XP</span>
+    <div class="btn"><i class="ti ti-3d-rotate" style="font-size:16px;color:var(--color-text-secondary);" aria-hidden="true"></i></div>
+    <button class="act">INFO</button>
+    <button class="act act-r">OPEN</button>
+  </div>
+  <span class="label">04 — 3D roteer</span>
+</div>
+
+<!-- 05: device-watch (AR wearable feel) -->
+<div class="item">
+  <div class="card-row">
+    <span class="pill pill-c">COMMON</span>
+    <span class="pill-xp">+5 XP</span>
+    <div class="btn"><i class="ti ti-viewfinder" style="font-size:16px;color:var(--color-text-secondary);" aria-hidden="true"></i></div>
+    <button class="act">INFO</button>
+    <button class="act act-r">OPEN</button>
+  </div>
+  <span class="label">05 — viewfinder</span>
+</div>
+
+<!-- 06: cube + accent -->
+<div class="item">
+  <div class="card-row">
+    <span class="pill pill-c">COMMON</span>
+    <span class="pill-xp">+5 XP</span>
+    <div class="btn" style="border-color:rgba(255,61,46,.3);"><i class="ti ti-box" style="font-size:16px;color:#ff3d2e;" aria-hidden="true"></i></div>
+    <button class="act">INFO</button>
+    <button class="act act-r">OPEN</button>
+  </div>
+  <span class="label">06 — kubus rood</span>
+</div>
+
+<!-- 07: AR icoon rood -->
+<div class="item">
+  <div class="card-row">
+    <span class="pill pill-c">COMMON</span>
+    <span class="pill-xp">+5 XP</span>
+    <div class="btn" style="border-color:rgba(255,61,46,.3);"><i class="ti ti-augmented-reality" style="font-size:16px;color:#ff3d2e;" aria-hidden="true"></i></div>
+    <button class="act">INFO</button>
+    <button class="act act-r">OPEN</button>
+  </div>
+  <span class="label">07 — AR rood</span>
+</div>
+
+<!-- 08: scan -->
+<div class="item">
+  <div class="card-row">
+    <span class="pill pill-c">COMMON</span>
+    <span class="pill-xp">+5 XP</span>
+    <div class="btn"><i class="ti ti-scan" style="font-size:16px;color:var(--color-text-secondary);" aria-hidden="true"></i></div>
+    <button class="act">INFO</button>
+    <button class="act act-r">OPEN</button>
+  </div>
+  <span class="label">08 — scan</span>
+</div>
+
+<!-- 09: device-mobile + box -->
+<div class="item">
+  <div class="card-row">
+    <span class="pill pill-c">COMMON</span>
+    <span class="pill-xp">+5 XP</span>
+    <div class="btn"><i class="ti ti-device-mobile" style="font-size:16px;color:var(--color-text-secondary);" aria-hidden="true"></i></div>
+    <button class="act">INFO</button>
+    <button class="act act-r">OPEN</button>
+  </div>
+  <span class="label">09 — mobiel</span>
+</div>
+
+<!-- 10: AR text rood accent -->
+<div class="item">
+  <div class="card-row">
+    <span class="pill pill-c">COMMON</span>
+    <span class="pill-xp">+5 XP</span>
+    <div class="btn" style="border-color:rgba(255,61,46,.3);background:rgba(255,61,46,.06);font-size:11px;font-weight:500;color:#ff3d2e;font-family:var(--font-sans);letter-spacing:.5px;">AR</div>
+    <button class="act">INFO</button>
+    <button class="act act-r">OPEN</button>
+  </div>
+  <span class="label">10 — AR rood accent</span>
+</div>
+
+</div>
