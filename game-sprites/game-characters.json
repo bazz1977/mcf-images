@@ -3,7 +3,7 @@
   "characters": [
     {
       "assetId": "TGZATCDA",
-      "unlockedByDefault": true,
+      "unlock": { "type": "default" },
       "sprites": {
         "start": "turd-baby-necro-start.png",
         "idle": "turd-baby-necro-idle.png",
