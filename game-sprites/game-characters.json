@@ -2,16 +2,16 @@
   "_comment": "Game-only data layer for Spawn Runner. Name, rarity, and base image come from nft-data.json via mcf-api.js — never duplicated here. Only game-specific fields (sprite states, unlock rules) live in this file.",
   "characters": [
     {
-      "assetId": "REPLACE_WITH_ASSETID_TURD_BABY_NECRO",
+      "assetId": "TGZATCDA",
       "unlockedByDefault": true,
       "sprites": {
-        "start": "game-sprites/turd-baby-necro-start.png",
-        "idle": "game-sprites/turd-baby-necro-idle.png",
-        "run": "game-sprites/turd-baby-necro-run.png",
-        "jump": "game-sprites/turd-baby-necro-jump.png",
-        "roll": "game-sprites/turd-baby-necro-roll.png",
-        "hit": "game-sprites/turd-baby-necro-hit.png",
-        "win": "game-sprites/turd-baby-necro-win.png"
+        "start": "turd-baby-necro-start.png",
+        "idle": "turd-baby-necro-idle.png",
+        "run": "turd-baby-necro-run.png",
+        "jump": "turd-baby-necro-jump.png",
+        "roll": "turd-baby-necro-roll.png",
+        "hit": "turd-baby-necro-hit.png",
+        "win": "turd-baby-necro-win.png"
       }
     }
   ]
