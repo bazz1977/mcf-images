@@ -16,6 +16,57 @@
         "hit": "turd-baby-necro-hit.png",
         "win": "turd-baby-necro-win.png"
       }
+    },
+    {
+      "_comment": "PLACEHOLDER ART — reusing Necro's sprites until Bas generates real Black poses. See memory/backlog note 16-08-2026. Only the sprite paths need to change later, not the unlock logic or assetId.",
+      "assetId": "TGZATDGF",
+      "unlock": { "type": "walletOwned" },
+      "sprites": {
+        "start": "turd-baby-necro-start.png",
+        "idle": "turd-baby-necro-idle.png",
+        "run": "turd-baby-necro-run.png",
+        "runMid": "turd-baby-necro-run-mid.png",
+        "run2": "turd-baby-necro-run2.png",
+        "runMid2": "turd-baby-necro-run-mid2.png",
+        "jump": "turd-baby-necro-jump.png",
+        "roll": "turd-baby-necro-roll.png",
+        "hit": "turd-baby-necro-hit.png",
+        "win": "turd-baby-necro-win.png"
+      }
+    },
+    {
+      "_comment": "PLACEHOLDER ART — reusing Necro's sprites until Bas generates real Bloody poses. See memory/backlog note 16-08-2026.",
+      "assetId": "TGZAPIMT",
+      "unlock": { "type": "walletOwned" },
+      "sprites": {
+        "start": "turd-baby-necro-start.png",
+        "idle": "turd-baby-necro-idle.png",
+        "run": "turd-baby-necro-run.png",
+        "runMid": "turd-baby-necro-run-mid.png",
+        "run2": "turd-baby-necro-run2.png",
+        "runMid2": "turd-baby-necro-run-mid2.png",
+        "jump": "turd-baby-necro-jump.png",
+        "roll": "turd-baby-necro-roll.png",
+        "hit": "turd-baby-necro-hit.png",
+        "win": "turd-baby-necro-win.png"
+      }
+    },
+    {
+      "_comment": "PLACEHOLDER ART — reusing Necro's sprites until Bas generates real Blue poses. See memory/backlog note 16-08-2026.",
+      "assetId": "TGZAWASX",
+      "unlock": { "type": "walletOwned" },
+      "sprites": {
+        "start": "turd-baby-necro-start.png",
+        "idle": "turd-baby-necro-idle.png",
+        "run": "turd-baby-necro-run.png",
+        "runMid": "turd-baby-necro-run-mid.png",
+        "run2": "turd-baby-necro-run2.png",
+        "runMid2": "turd-baby-necro-run-mid2.png",
+        "jump": "turd-baby-necro-jump.png",
+        "roll": "turd-baby-necro-roll.png",
+        "hit": "turd-baby-necro-hit.png",
+        "win": "turd-baby-necro-win.png"
+      }
     }
   ]
 }
