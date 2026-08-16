@@ -1,0 +1,13 @@
+{
+  "_comment": "Game-only obstacle art variants for Spawn Runner. One variant is picked at random per spawn from the matching list ('low' = jump over, 'high' = roll under). The visible image keeps its own aspect ratio, scaled to fit a size budget — collision uses the separate, already-tuned hitbox constants in spawn-runner-game.js, not the image dimensions.",
+  "low": [
+    { "id": "oil-drum", "image": "obstacles/oil-drum.png" },
+    { "id": "barrier", "image": "obstacles/barrier.png" },
+    { "id": "barbed-wire", "image": "obstacles/barbed-wire.png" }
+  ],
+  "high": [
+    { "id": "pipe-chain", "image": "obstacles/pipe-chain.png" },
+    { "id": "sparking-cable", "image": "obstacles/sparking-cable.png" },
+    { "id": "warning-sign", "image": "obstacles/warning-sign.png" }
+  ]
+}
