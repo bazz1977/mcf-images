@@ -1,7 +1,7 @@
 {
   "_comment": "Game-only level data for Spawn Runner. These 6 'waves' are game levels, unrelated to waves-data.js (the real NFT craft waves) — same naming, different concept, deliberately not cross-referenced.",
   "waves": [
-    { "id": 1, "label": "Wave 1", "unlock": { "type": "default" }, "background": "wave-bg-1.png", "groundY": 378, "obstacles": { "speed": 4, "minGapMs": 1200, "maxGapMs": 2200 }, "scoring": { "pointsPerSecond": 20, "hitPenalty": 150, "thresholds": { "common": 0, "rare": 150, "epic": 400, "legendary": 800, "exotic": 1500 } }, "backgroundScrollSpeed": 1 },
+    { "id": 1, "label": "Wave 1", "unlock": { "type": "default" }, "background": "wave-bg-1.png", "groundY": 378, "obstacles": { "speed": 4, "minGapMs": 1200, "maxGapMs": 2200 }, "scoring": { "pointsPerSecond": 20, "hitPenalty": 150, "thresholds": { "common": 0, "rare": 150, "epic": 400, "legendary": 800, "exotic": 1500 } }, "backgroundScrollSpeed": 1, "villain": { "speed": 4, "minGapMs": 6000, "maxGapMs": 9000 } },
     { "id": 2, "label": "Wave 2", "unlock": { "type": "previousComplete", "waveId": 1 } },
     { "id": 3, "label": "Wave 3", "unlock": { "type": "previousComplete", "waveId": 2 } },
     { "id": 4, "label": "Wave 4", "unlock": { "type": "previousComplete", "waveId": 3 } },
