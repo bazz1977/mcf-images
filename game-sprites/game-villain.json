@@ -1,0 +1,14 @@
+{
+  "_comment": "Game-only villain data for Spawn Runner. Structured as a list (like game-characters.json) even though only one villain exists today, so a second villain type can be added later without a schema change — just a new entry here plus a per-wave 'villainId' if multiple ever need to be picked between.",
+  "villains": [
+    {
+      "id": "spawn-villain",
+      "sprites": {
+        "idle": "villain/villain-idle.png",
+        "attackPunch": "villain/villain-punch.png",
+        "attackChain": "villain/villain-chain.png",
+        "attackKick": "villain/villain-kick.png"
+      }
+    }
+  ]
+}
